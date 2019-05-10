@@ -38,7 +38,7 @@ class File
     /**
      * @var Tour The user this tour order is about.
      *
-     * @ORM\ManyToOne(targetEntity="Tour", inversedBy="file")
+     * @ORM\ManyToOne(targetEntity="Tour", inversedBy="files")
      */
     public $tour;
 

@@ -11,9 +11,9 @@ use ApiPlatform\Core\Annotation\ApiResource;
  * A feedback.
  *
  * @ORM\Entity
- @ApiResource(
+ * @ApiResource(
  *     collectionOperations={"get", "post"},
- *     itemOperations={}
+ *     itemOperations={"get"}
  * )
  */
 class Feedback
@@ -55,7 +55,7 @@ class Feedback
      */
     public $user;
 
-        public function __construct()
+    public function __construct()
     {
         $this->reviews = new ArrayCollection();
     }

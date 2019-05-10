@@ -6,6 +6,10 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiSubresource;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use ApiPlatform\Core\Annotation\ApiProperty;
 
 /**
  * A tour.
@@ -13,7 +17,13 @@ use ApiPlatform\Core\Annotation\ApiResource;
  * @ORM\Entity
  @ApiResource(
  *     collectionOperations={"get", "post"},
- *     itemOperations={"delete","get"}
+ *     itemOperations={"delete","get"},
+ *     subresourceOperations={
+ *          "file_post_subresource"={
+ *              "method"="POST",
+ *              "path"="/api/tours/{id}/file"
+ *          },
+ *     },
  * )
  */
 class Tour
@@ -27,7 +37,7 @@ class Tour
      */
     private $id;
 
-/**
+    /**
      * @var DateTimeInterface the create date of this tour.
      *
      * @ORM\Column(type="datetime")
@@ -63,11 +73,12 @@ class Tour
     public $user;
 
     /**
-     * @var City The array files this tour is about.
+     * @var File[] The array files this tour is about.
      *
-     * @ORM\ManyToOne(targetEntity="File", inversedBy="tour")
+     * @ORM\OneToMany(targetEntity="File", mappedBy="tour", cascade={"persist", "remove"})
+     * @ApiSubresource
      */
-    public $file;
+    public $files;
 
     /**
      ** @var float The cost of this tour.
@@ -96,6 +107,15 @@ class Tour
      * @ORM\Column
      */
     public $comment;
+
+    /**
+     * @var MediaObject|null
+     *
+     * @ORM\ManyToOne(targetEntity=MediaObject::class)
+     * @ORM\JoinColumn(nullable=true)
+     * @ApiProperty(iri="http://schema.org/image")
+     */
+    public $image;
 
     
 
