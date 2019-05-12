@@ -15,12 +15,12 @@ use ApiPlatform\Core\Annotation\ApiProperty;
  * A tour.
  *
  * @ORM\Entity
- @ApiResource(
+ * @ApiResource(
  *     collectionOperations={"get", "post"},
  *     itemOperations={"delete","get"},
  *     subresourceOperations={
  *          "file_post_subresource"={
- *              "method"="POST",
+ *              "method"="GET",
  *              "path"="/api/tours/{id}/file"
  *          },
  *     },
@@ -32,8 +32,8 @@ class Tour
      * @var int The id of this tour.
      *
      * @ORM\Id
-     * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
 
@@ -75,7 +75,7 @@ class Tour
     /**
      * @var File[] The array files this tour is about.
      *
-     * @ORM\OneToMany(targetEntity="File", mappedBy="tour", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity="MediaFile", mappedBy="tour", cascade={"persist", "remove"})
      * @ApiSubresource
      */
     public $files;
@@ -107,22 +107,6 @@ class Tour
      * @ORM\Column
      */
     public $comment;
-
-    /**
-     * @var MediaObject|null
-     *
-     * @ORM\ManyToOne(targetEntity=MediaObject::class)
-     * @ORM\JoinColumn(nullable=true)
-     * @ApiProperty(iri="http://schema.org/image")
-     */
-    public $image;
-
-    
-
-        public function __construct()
-    {
-        $this->reviews = new ArrayCollection();
-    }
 
     public function getId(): ?int
     {
