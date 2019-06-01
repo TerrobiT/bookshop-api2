@@ -3,28 +3,24 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Annotation\ApiSubresource;
 use Symfony\Component\HttpFoundation\File\File;
-use Vich\UploaderBundle\Mapping\Annotation as Vich;
-use ApiPlatform\Core\Annotation\ApiProperty;
+use app\Controller\AddNewMediaObjectController;
 
 /**
  * A tour.
  *
  * @ORM\Entity
  * @ApiResource(
- *     collectionOperations={"get", "post"},
- *     itemOperations={"delete","get"},
- *     subresourceOperations={
- *          "file_post_subresource"={
- *              "method"="GET",
- *              "path"="/api/tours/{id}/file"
- *          },
- *     },
- * )
+ *     collectionOperations={"get",
+ *         "postt"={
+ *              "method"="POST",
+ *              "controller"= AddNewMediaObjectController::class,
+ *
+ *          }
+ *     })
  */
 class Tour
 {
@@ -75,7 +71,7 @@ class Tour
     /**
      * @var File[] The array files this tour is about.
      *
-     * @ORM\OneToMany(targetEntity="MediaFile", mappedBy="tour", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity="MediaObject", mappedBy="tour", cascade={"persist", "remove"})
      * @ApiSubresource
      */
     public $files;

@@ -72,11 +72,7 @@ class Advert
      * @ORM\Column
      */
     public $comment;
-    
-    public function __construct()
-    {
-        $this->reviews = new ArrayCollection();
-    }
+
 
     public function getId(): ?int
     {
