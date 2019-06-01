@@ -8,6 +8,7 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Annotation\ApiSubresource;
 use Symfony\Component\HttpFoundation\File\File;
 use app\Controller\AddNewMediaObjectController;
+use App\Controller\CreateBookPublication;
 
 /**
  * A tour.
@@ -15,10 +16,10 @@ use app\Controller\AddNewMediaObjectController;
  * @ORM\Entity
  * @ApiResource(
  *     collectionOperations={"get",
- *         "postt"={
+ *         "post_publication"={
  *              "method"="POST",
- *              "controller"= AddNewMediaObjectController::class,
- *
+ *              "path"="/books/{id}/publication",
+ *              "controller"=CreateBookPublication::class,
  *          }
  *     })
  */
