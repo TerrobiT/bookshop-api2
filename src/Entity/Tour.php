@@ -5,8 +5,6 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiResource;
-use ApiPlatform\Core\Annotation\ApiSubresource;
-use Symfony\Component\HttpFoundation\File\File;
 use App\Controller\CreateTourOrder;
 
 /**
@@ -69,12 +67,11 @@ class Tour
     public $user;
 
     /**
-     * @var File[] The array files this tour is about.
+     * @var MediaObject[] The array media objects this tour is about.
      *
      * @ORM\OneToMany(targetEntity="MediaObject", mappedBy="tour", cascade={"persist", "remove"})
-     * @ApiSubresource
      */
-    public $files;
+    public $mediaobjects;
 
     /**
      ** @var float The cost of this tour.
