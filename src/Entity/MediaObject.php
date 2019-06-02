@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use App\Entity\Tour;
 
 
 /**
@@ -32,6 +33,12 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  *                     "multipart/form-data",
  *                 },
  *                 "parameters"={
+ *                     {
+ *                         "in"="formData",
+ *                         "name"="name",
+ *                         "type"="string",
+ *                         "description"="The name of the file",
+ *                     },
  *                     {
  *                         "in"="formData",
  *                         "name"="file",
@@ -81,6 +88,20 @@ class MediaObject
      * @ORM\Column(nullable=true)
      */
     public $filePath;
+
+    /**
+     * @var Tour The user this tour order is about.
+     *
+     * @ORM\ManyToOne(targetEntity="Tour", inversedBy="mediaobjects")
+     */
+    public $tour;
+
+    /**
+     * @var string The title of this file.
+     *
+     * @ORM\Column
+     */
+    public $name;
 
     public function getId(): ?int
     {

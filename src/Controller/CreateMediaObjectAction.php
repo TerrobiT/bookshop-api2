@@ -35,6 +35,7 @@ final class CreateMediaObjectAction
 
         $mediaObject = new MediaObject();
         $mediaObject->file = $uploadedFile;
+        $mediaObject->name = $request->request->get('name');
 
         $this->validate($mediaObject, $request);
 
