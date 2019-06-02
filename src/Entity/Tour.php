@@ -7,21 +7,20 @@ use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Annotation\ApiSubresource;
 use Symfony\Component\HttpFoundation\File\File;
-use app\Controller\AddNewMediaObjectController;
-use App\Controller\CreateBookPublication;
+use App\Controller\CreateTourOrder;
 
 /**
  * A tour.
  *
  * @ORM\Entity
  * @ApiResource(
- *     collectionOperations={"get",
- *         "post_publication"={
- *              "method"="POST",
- *              "path"="/books/{id}/publication",
- *              "controller"=CreateBookPublication::class,
- *          }
- *     })
+ *     collectionOperations={"get", "post"},
+ *     itemOperations={"delete","get","post_order"={
+ *         "method"="POST",
+ *         "path"="/tours/{id}/order",
+ *         "controller"=CreateTourOrder::class,
+ *     }}
+ * )
  */
 class Tour
 {
